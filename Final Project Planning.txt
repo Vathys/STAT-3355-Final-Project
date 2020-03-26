@@ -1,0 +1,29 @@
+1.) Did Texas become a more diverse state from 2000-2010?
+
+Data needed:
+	P3, P4, P5, P7, P8
+	
+2.) What is the distribution of race between urban and rural areas?
+
+Data needed:
+	H2, P2, PCT 11, PCT 23
+	Same as above probably in the urban or rural regions (tracts?)
+	
+3.) Can we accurately predict the increase in population by the number of children?
+
+Data needed:
+	P1, P16
+
+Try analysing the 2000 census to predict 2010 and use the same method for 2010 to predict 2020 pop
+
+4.) Is there a correlation between multigenerational living and the number of children in a household?
+
+Data needed:
+	P16, 
+	PCT 14, 
+	Age by population? Go back to the first question about rising diversity and increasing.
+
+5.) Which race is more likely to live in a multigenerational household?
+
+Data needed:
+	PCT 14
