@@ -19,7 +19,7 @@ Try analysing the 2000 census to predict 2010 and use the same method for 2010 t
 4.) Is there a correlation between multigenerational living and the number of children in a household?
 
 Data needed:
-	P16, 
+	P 16,
 	PCT 14, 
 	Age by population? Go back to the first question about rising diversity and increasing.
 
