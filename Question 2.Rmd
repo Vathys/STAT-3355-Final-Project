@@ -1,0 +1,47 @@
+```{r}
+# Solving question 2
+# What is the distribution of race between urban and rural areas
+
+install.packages("tidycensus")
+library(tidycensus)
+install.packages("tidyverse")
+library(tidyverse)
+library(gridExtra)
+
+urban_vars <- c("P002002")
+
+p_2_10 <- get_decennial(geography = "county", variables = urban_vars,
+                        summary_var = "P002001", year = 2010,
+                        state = "TX", geometry = TRUE) %>%
+  mutate(pct = 100 * (value / summary_value)) %>%
+  mutate(is_urban = pct >= 50)
+
+ur_names <- c("Urban Areas")
+names(ur_names) <- c("P002002")
+
+race_plot_10 <- ggplot(p_2_10, aes(fill = is_urban)) + 
+  geom_sf() +
+  facet_wrap(~variable, labeller = labeller(variable = ur_names))  + labs(fill = "Urban")
+
+race_plot_10
+
+# adding races
+
+race_vars_10 <- c("P003002", "P003003", "P003004", "P003005", "P003006", "P003007", "P003008")
+
+p_3_10 <- get_decennial(geography = "county", variables = race_vars_10, summary_var = "P003001", year = 2010, state = "TX", geometry = TRUE, keep_geo_vars = TRUE)
+
+p_3_10 <- p_3_10 %>%
+  select(GEOID, NAME.x, variable, value, summary_value) %>%
+  spread(variable, value) 
+
+p_10_com <- full_join(as.data.frame(p_3_10), as.data.frame(p_2_10), by = "GEOID") %>% 
+  select(GEOID, NAME.x, geometry.x, "White" = P003002, "Black/African" = P003003, "American Indian" = P003004, "Asian" = P003005, "Native Hawaiian/Pacific Islander" = P003006, "Other" = P003007, "Two or More" = P003008, is_urban, pct) %>%
+  gather(key = "race", value = "population", "White", "Black/African", "American Indian", "Asian", "Native Hawaiian/Pacific Islander", "Other", "Two or More")
+
+ggplot(data = p_10_com, aes(x = race, y = population, fill = is_urban)) + geom_bar(stat = "identity", position = "fill") + labs(fill = "Urban")
+
+```
+
+
+
